@@ -24,7 +24,7 @@
                 const auth = getAuth();
                 signInWithEmailAndPassword(auth, this.email, this.password).then(
                     () => {
-                        alert('Well done! You are now connected');
+                        this.$router.replace('home');
                     },
                     (err) => {
                         alert('Oops. ' + err.message);

@@ -1,8 +1,8 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router'
-import { initializeApp } from "firebase/app";
-//import { getAnalytics } from "firebase/analytics";
+import { createApp } from 'vue';
+import App from './App.vue';
+import router from './router';
+import { initializeApp } from 'firebase/app';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDXyDf9qAHQ-Tk2fyI6a6iA-w-QY25R4VY",
@@ -15,8 +15,15 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-initializeApp(firebaseConfig);
-//const app = initializeApp(firebaseConfig);
-//const analytics = getAnalytics(app);
+const app = initializeApp(firebaseConfig);
 
-createApp(App).use(router).mount('#app')
+// Initialize Firebase Authentication and get a reference to the service
+const auth = getAuth(app);
+
+let vueApp = '';
+
+onAuthStateChanged(auth, () => {
+  if (!vueApp) {
+    vueApp = createApp(App).use(router).mount('#app');
+  }
+});

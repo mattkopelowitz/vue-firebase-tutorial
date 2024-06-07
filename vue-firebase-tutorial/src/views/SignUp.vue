@@ -22,14 +22,13 @@
         methods: {
             signUp() {
                 const auth = getAuth();
-                createUserWithEmailAndPassword(auth, this.email, this.password)
-                    .then(
-                        () => {
-                        alert('Your account has been created!');
-                    })
-                    .catch((error) => {
+                createUserWithEmailAndPassword(auth, this.email, this.password).then(
+                    () => {
+                        this.$router.replace('home');
+                    }).catch((error) => {
                         alert('Oops. ' + error.message);
-                    });
+                    }
+                );
             }
         }
     }
